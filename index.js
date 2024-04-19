@@ -42,21 +42,23 @@ function rollDie() {
     return Math.floor(Math.random() * 6) + 1;
 }
 
-function roll4d6DropLowest() {
+function rollCharacteristics() {
     const rolls = [];
     for (let i = 0; i < 4; i++) {
         rolls.push(rollDie());
     }
-    // Sort the rolls in ascending order
-    rolls.sort((a, b) => a - b);
-    // Drop the lowest roll (first element) and sum the remaining rolls
-    return rolls.slice(1).reduce((total, roll) => total + roll, 0);
+    rolls.sort();
+    let result = 0;
+    for (let i = 1; i < 4; i++) {
+        result = result + rolls[i]
+    }
+    return result;
 }
 
 function generateCharacteristics() {
     const characteristics = [];
     for (let i = 0; i < 6; i++) {
-        characteristics.push(roll4d6DropLowest());
+        characteristics.push(rollCharacteristics());
     }
     return {"name": characteristics.toString()};
 }
